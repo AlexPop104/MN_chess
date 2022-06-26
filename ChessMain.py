@@ -17,8 +17,8 @@ DIMENSION =8
 DIMENSION_WIDTH=8
 DIMENSION_HEIGHT=8
 
-DIMENSION_WIDTH=7
-DIMENSION_HEIGHT=7
+DIMENSION_WIDTH=8
+DIMENSION_HEIGHT=8
 
 # 
 
@@ -34,7 +34,7 @@ IMAGES={}
 def loadImages():
     pieces=["wp","wR","wN","wB","wK","wQ","bp","bR","bN","bB","bK","bQ"]
     for piece in pieces:
-        IMAGES[piece]=p.transform.scale(p.image.load("/home/alex-pop/Desktop/Chess_games/MN_chess/images/"+piece+".png"),(SQ_SIZE,SQ_SIZE))
+        IMAGES[piece]=p.transform.scale(p.image.load("/home/alex-pop/Desktop/Chess_games/MN_chess/images/"+piece+".png"),(SQ_SIZE_HEIGHT,SQ_SIZE_WIDTH))
 
 def main():
     p.init()
@@ -45,6 +45,11 @@ def main():
     #print(gs.board)
 
 
+    
+
+    
+
+    
     validMoves=gs.getValidMoves()
     moveMade=False
 
@@ -88,6 +93,15 @@ def main():
         if moveMade:
             validMoves = gs.getValidMoves()
             moveMade = False
+
+        for i in range(DIMENSION_WIDTH):
+            if(gs.board[0][i]=='wp'):
+                gs.board[0][i]='wQ'
+                loadImages()
+            if(gs.board[DIMENSION_HEIGHT-1][i]=='bp'):
+                gs.board[DIMENSION_HEIGHT-1][i]='bQ'
+                loadImages()
+
 
         drawGameState(screen,gs)
         clock.tick(MAX_FPS)
