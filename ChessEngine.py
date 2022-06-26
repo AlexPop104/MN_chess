@@ -169,4 +169,4 @@ class Move():
 
     def getRankFile(self,r,c):
         #return self.colsToFiles[c]+ self.rowsToRanks[r]
-        return (str(c)+" "+str(r))
+        return (str(r+1)+str(c+1))

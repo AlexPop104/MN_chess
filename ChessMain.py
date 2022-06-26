@@ -7,15 +7,15 @@ WIDTH =  1024
 HEIGHT = 1024
 DIMENSION =8
 
-# print("Width=")
-# DIMENSION_WIDTH=int(input())
+print("Width=")
+DIMENSION_WIDTH=int(input())
 
 
-# print("Height=")
-# DIMENSION_HEIGHT=int(input())
+print("Height=")
+DIMENSION_HEIGHT=int(input())
 
-DIMENSION_WIDTH=8
-DIMENSION_HEIGHT=8
+# DIMENSION_WIDTH=8
+# DIMENSION_HEIGHT=8
 
 # 
 
@@ -31,14 +31,14 @@ IMAGES={}
 def loadImages():
     pieces=["wp","wR","wN","wB","wK","wQ","bp","bR","bN","bB","bK","bQ"]
     for piece in pieces:
-        IMAGES[piece]=p.transform.scale(p.image.load("/home/alex-pop/Desktop/Chess_games/Chess/images/"+piece+".png"),(SQ_SIZE,SQ_SIZE))
+        IMAGES[piece]=p.transform.scale(p.image.load("/home/alex-pop/Desktop/Chess_games/MN_chess/images/"+piece+".png"),(SQ_SIZE,SQ_SIZE))
 
 def main():
     p.init()
     screen =p.display.set_mode([WIDTH,HEIGHT])
     clock=p.time.Clock()
     screen.fill(p.Color("white"))
-    gs=ce.GameState(nr_rows=DIMENSION_WIDTH,nr_columns=DIMENSION_HEIGHT)
+    gs=ce.GameState(nr_rows=DIMENSION_HEIGHT,nr_columns=DIMENSION_WIDTH)
     #print(gs.board)
 
 
@@ -97,14 +97,14 @@ def drawGameState(screen,gs):
 def drawBoard(screen):
     colors=[p.Color("white"),p.Color("gray")]
     #colors=[p.Color("red"),p.Color("black")]
-    for r in range(DIMENSION_WIDTH):
-        for c in range(DIMENSION_HEIGHT):
+    for r in range(DIMENSION_HEIGHT):
+        for c in range(DIMENSION_WIDTH):
             color= colors[((r+c)%2)]
             p.draw.rect(screen,color,p.Rect(c*SQ_SIZE_HEIGHT,r*SQ_SIZE_WIDTH,SQ_SIZE_HEIGHT,SQ_SIZE_WIDTH))
 
 def drawPieces(screen,board):
-    for r in range(DIMENSION_WIDTH):
-        for c in range(DIMENSION_HEIGHT):
+    for r in range(DIMENSION_HEIGHT):
+        for c in range(DIMENSION_WIDTH):
             piece=board[r][c]
             if piece != "--":
                 screen.blit(IMAGES[piece],p.Rect(c*SQ_SIZE_HEIGHT,r*SQ_SIZE_WIDTH,SQ_SIZE_HEIGHT,SQ_SIZE_WIDTH))
