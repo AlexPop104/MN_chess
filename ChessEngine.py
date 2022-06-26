@@ -125,7 +125,25 @@ class GameState():
 
 
     def getRookMoves(self,r,c,moves):
-        pass
+        directions = ((-1,0),(0,-1),(1,0),(0,1))
+        enemyColor = "b" if self.whiteToMove  else "w"
+        for d in directions:
+                for i in range(1,8):
+                    endRow=r +d[0] *i
+                    endCol=c+d[1] *i
+                    if 0<=endRow<8 and 0<=endCol<8:
+                        endPiece=self.board[endRow][endCol]
+                        if endPiece=="--":
+                            moves.append(Move((r,c),(endRow,endCol),self.board))
+                        elif endPiece[0] == enemyColor:
+                            moves.append(Move((r,c),(endRow,endCol),self.board))
+                            break
+                        else:
+                            break
+                    else:
+                        break
+
+
 
     def getBishopMoves(self,r,c,moves):
         pass
@@ -156,7 +174,7 @@ class Move():
         self.endCol =endSq[1]
         self.pieceMoved= board[self.startRow][self.startCol]
         self.pieceCaptured = board[self.endRow][self.endCol]
-        self.moveID=self.startRow*1000+self.startCol*100+self.endRow*10 +self.endCol
+        self.moveID=(self.startCol+1)*1000+(8-self.startRow)*100+(self.endCol+1)*10 +(8-self.endRow)
         print(self.moveID)
 
     def __eq__(self,other):
@@ -169,4 +187,4 @@ class Move():
 
     def getRankFile(self,r,c):
         #return self.colsToFiles[c]+ self.rowsToRanks[r]
-        return (str(c+1)+str(r+1))
+        return (str(c+1)+str(8-r))
