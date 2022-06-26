@@ -102,7 +102,7 @@ class GameState():
         if self.whiteToMove:
             if self.board[r-1][c]== "--":
                 moves.append(Move((r,c),(r-1,c),self.board))
-                if r ==6 and self.board[r-2][c]=="--":
+                if r ==self.nr_rows-2 and self.board[r-2][c]=="--":
                     moves.append(Move((r,c),(r-2,c),self.board))
                 if c-1>=0:
                     if self.board[r-1][c-1][0]=="b":
@@ -169,4 +169,4 @@ class Move():
 
     def getRankFile(self,r,c):
         #return self.colsToFiles[c]+ self.rowsToRanks[r]
-        return (str(r+1)+str(c+1))
+        return (str(c+1)+str(r+1))

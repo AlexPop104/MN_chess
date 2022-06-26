@@ -7,15 +7,15 @@ WIDTH =  1024
 HEIGHT = 1024
 DIMENSION =8
 
-print("Width=")
-DIMENSION_WIDTH=int(input())
+# print("Width=")
+# DIMENSION_WIDTH=int(input())
 
 
-print("Height=")
-DIMENSION_HEIGHT=int(input())
+# print("Height=")
+# DIMENSION_HEIGHT=int(input())
 
-# DIMENSION_WIDTH=8
-# DIMENSION_HEIGHT=8
+DIMENSION_WIDTH=9
+DIMENSION_HEIGHT=9
 
 # 
 
