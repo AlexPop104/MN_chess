@@ -169,14 +169,14 @@ class GameState():
         pass
 
     def getKnightMoves(self,r,c,moves):
-        knightMoves=((-2,-1),(-2,1),(-1,-2),(-1,2),(1,-2),(1,-2),(1,2),(2,-1),(2,1))
-        enemyColor = "b" if self.whiteToMove  else "w"
+        knightMoves=((-2,-1),(-2,1),(-1,-2),(-1,2),(1,-2),(1,2),(2,-1),(2,1))
+        allyColor = "w" if self.whiteToMove  else "b"
         for m in knightMoves:
             endRow=r+m[0]
             endCol=c+m[1]
             if 0<=endRow < self.nr_rows and 0<=endCol<self.nr_columns:
                 endPiece =self.board[endRow][endCol]
-                if endPiece[0] == enemyColor:
+                if endPiece[0] != allyColor:
                     moves.append(Move((r,c),(endRow,endCol),self.board))
 
 
