@@ -27,45 +27,45 @@ class GameState():
         #     ["wR","wN","wB","wQ","wK","wB","wN","wR"]
         # ]
 
-        self.board[0][(nr_columns//2)]="bK"
+        # self.board[0][(nr_columns//2)]="bK"
 
-        if(nr_columns>1):
-            self.board[nr_rows-1][(nr_columns//2)]="wK"
+        # if(nr_columns>1):
+        #     self.board[nr_rows-1][(nr_columns//2)]="wK"
 
-            for i in range(nr_columns):
-                self.board[1][i]="bp"
+        #     for i in range(nr_columns):
+        #         self.board[1][i]="bp"
 
-            for i in range(nr_columns):
-                self.board[nr_rows-2][i]="wp"
+        #     for i in range(nr_columns):
+        #         self.board[nr_rows-2][i]="wp"
 
-            if(nr_rows>2):
-                self.board[0][0]="bR"
-                self.board[0][nr_columns-1]="bR"
+        #     if(nr_rows>2):
+        #         self.board[0][0]="bR"
+        #         self.board[0][nr_columns-1]="bR"
 
-                self.board[nr_rows-1][0]="wR"
-                self.board[nr_rows-1][nr_columns-1]="wR"
+        #         self.board[nr_rows-1][0]="wR"
+        #         self.board[nr_rows-1][nr_columns-1]="wR"
 
-                if(nr_rows>3):
-                    self.board[0][nr_columns//2-1]="bQ"
-                    self.board[nr_rows-1][nr_columns//2-1]="wQ"
+        #         if(nr_rows>3):
+        #             self.board[0][nr_columns//2-1]="bQ"
+        #             self.board[nr_rows-1][nr_columns//2-1]="wQ"
 
-                if(nr_rows>4):
-                    self.board[0][nr_columns//2+1]="bB"
-                    self.board[nr_rows-1][nr_columns//2+1]="wB"
+        #         if(nr_rows>4):
+        #             self.board[0][nr_columns//2+1]="bB"
+        #             self.board[nr_rows-1][nr_columns//2+1]="wB"
 
-                if(nr_rows>5):
+        #         if(nr_rows>5):
                     
-                    self.board[0][nr_columns//2-2]="bB"
-                    self.board[nr_rows-1][nr_columns//2-2]="wB"
+        #             self.board[0][nr_columns//2-2]="bB"
+        #             self.board[nr_rows-1][nr_columns//2-2]="wB"
 
-                if(nr_rows>6):
-                    self.board[0][nr_columns//2+2]="bN"
-                    self.board[nr_rows-1][nr_columns//2+2]="wN"
+        #         if(nr_rows>6):
+        #             self.board[0][nr_columns//2+2]="bN"
+        #             self.board[nr_rows-1][nr_columns//2+2]="wN"
 
-                if(nr_rows>7):
+        #         if(nr_rows>7):
                     
-                    self.board[0][nr_columns//2-3]="bN"
-                    self.board[nr_rows-1][nr_columns//2-3]="wN"
+        #             self.board[0][nr_columns//2-3]="bN"
+        #             self.board[nr_rows-1][nr_columns//2-3]="wN"
 
         # if self.board[nr_rows//2][nr_columns//2]=="--":
         #     self.board[nr_rows//2][nr_columns//2]="R"

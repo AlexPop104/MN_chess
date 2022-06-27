@@ -2,6 +2,7 @@ import pygame as p
 
 
 import ChessEngine as ce
+import numpy as np
 
 WIDTH =  1024   
 HEIGHT = 1024
@@ -53,29 +54,7 @@ def main():
 
 
 
-    # print("How many red squares do you want?")
-    # nr_red_squares=int(input())
-
-    # if(nr_red_squares>0):
-    #     for t in range(nr_red_squares):
-    #         print("Choose coordinates for red square number "+str(t))
-    #         ok=1
-    #         print("Column:")
-    #         rowRed=int(input())
-    #         print("Row:")
-    #         colRed=int(input())
-    #         if gs.board[8-rowRed][colRed-1]!="--":
-    #             ok=0
-    #         while(not ok):
-    #             print("Square occupied, choose again")
-    #             print("Column:")
-    #             rowRed=int(input())
-    #             print("Row:")
-    #             colRed=int(input())
-    #             if gs.board[8-rowRed][colRed-1]=="--":
-    #                 ok=1
-
-    #         gs.board[8-rowRed][colRed-1]="R"
+  
 
     
     validMoves=gs.getValidMoves()
@@ -93,34 +72,33 @@ def main():
                 location = p.mouse.get_pos()
                 col= location[0]//SQ_SIZE_HEIGHT
                 row= location[1]//SQ_SIZE_WIDTH
-                if sqSelected == (row, col):
-                    sqSelected=()
-                    playerClicks=[]
-                else:
-                    sqSelected=(row,col)
-                    playerClicks.append(sqSelected)
-                if len(playerClicks)==2:
-                    move= ce.Move(playerClicks[0],playerClicks[1],gs.board)
-                    print(move.getChessNotation())
-
-                    if move in validMoves:
-                        gs.makeMove(move)
-                        moveMade=True
-                    sqSelected=()
-                    playerClicks=[]    
-
-                    # gs.makeMove(move)
-
-                
+                if gs.board[row][col][0]!="w" and gs.board[row][col][0]!="b":
+                        if gs.board[row][col]=="--":
+                            gs.board[row][col]="R"
+                        else:
+                            gs.board[row][col]="--" 
 
             elif e.type== p.KEYDOWN:
-                if e.key==p.K_z:
-                    gs.undoMove()
-                    moveMade = True
+                if e.key==p.K_s:
+                    print("file_name=")
+                    file_name=str(input())
 
-        if moveMade:
-            validMoves = gs.getValidMoves()
-            moveMade = False
+                    
+
+                    with open(file_name+".txt", 'w') as f:
+                        f.write(str(DIMENSION_HEIGHT)+" ")
+                        f.write(str(DIMENSION_WIDTH))
+                        f.write('\n')
+                        for r in range(0,DIMENSION_HEIGHT):
+                            for c in range(0,DIMENSION_WIDTH):
+                                f.write(gs.board[r][c]+" ")
+                            f.write('\n')
+                    
+                          
+                    
+                   
+
+                
 
         for i in range(DIMENSION_WIDTH):
             if(gs.board[0][i]=='wp'):
