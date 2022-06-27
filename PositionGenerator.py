@@ -1,8 +1,10 @@
 import pygame as p
+import re
+import copy
 
 
 import ChessEngine as ce
-import numpy as np
+
 
 WIDTH =  1024   
 HEIGHT = 1024
@@ -43,10 +45,38 @@ def main():
     print("file_name=")
     file_name=str(input())
 
+    gs=ce.GameState(nr_rows=1,nr_columns=1)
+
+    with open(file_name+".txt", 'r') as f:
+        nr= f.readline()
+        extracted_nr=re.findall('[0-9]+',nr)
+        [DIMENSION_HEIGHT,DIMENSION_WIDTH]=list(map(int, extracted_nr))
+        
+        gs=copy.deepcopy(ce.GameState(nr_rows=DIMENSION_HEIGHT,nr_columns=DIMENSION_WIDTH))
+        
+
+        lines = f.readlines()
+        lines = [line.rstrip() for line in lines]
+        
+        for i in range(DIMENSION_HEIGHT):
+            words=lines[i]
+            split_words=words.split()
+            for j in range(DIMENSION_WIDTH):
+                gs.board[i][j]=split_words[j]
+
+            
+
+        
+
+
     screen =p.display.set_mode([WIDTH,HEIGHT])
     clock=p.time.Clock()
     screen.fill(p.Color("white"))
-    gs=ce.GameState(nr_rows=DIMENSION_HEIGHT,nr_columns=DIMENSION_WIDTH)
+
+    
+    
+
+    #gs=ce.GameState(nr_rows=DIMENSION_HEIGHT,nr_columns=DIMENSION_WIDTH)
     #print(gs.board)
 
     drawBoard(screen,gs)
