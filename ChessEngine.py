@@ -67,8 +67,8 @@ class GameState():
                     self.board[0][nr_columns//2-3]="bN"
                     self.board[nr_rows-1][nr_columns//2-3]="wN"
 
-        if self.board[nr_rows//2][nr_columns//2]=="--":
-            self.board[nr_rows//2][nr_columns//2]="R"
+        # if self.board[nr_rows//2][nr_columns//2]=="--":
+        #     self.board[nr_rows//2][nr_columns//2]="R"
 
         self.whiteToMove=True
         self.moveLog=[]

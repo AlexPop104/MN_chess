@@ -44,10 +44,32 @@ def main():
     gs=ce.GameState(nr_rows=DIMENSION_HEIGHT,nr_columns=DIMENSION_WIDTH)
     #print(gs.board)
 
+    drawBoard(screen,gs)
+    p.display.flip()
 
-    
+    print("How many red squares do you want?")
+    nr_red_squares=int(input())
 
-    
+    if(nr_red_squares>0):
+        for t in range(nr_red_squares):
+            print("Choose coordinates for red square number "+str(t))
+            ok=1
+            print("Column:")
+            rowRed=int(input())
+            print("Row:")
+            colRed=int(input())
+            if gs.board[8-rowRed][colRed-1]!="--":
+                ok=0
+            while(not ok):
+                print("Square occupied, choose again")
+                print("Column:")
+                rowRed=int(input())
+                print("Row:")
+                colRed=int(input())
+                if gs.board[8-rowRed][colRed-1]=="--":
+                    ok=1
+
+            gs.board[8-rowRed][colRed-1]="R"
 
     
     validMoves=gs.getValidMoves()
