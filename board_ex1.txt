@@ -1,0 +1,9 @@
+8 8
+bB bN bN bR bK bR bQ -- 
+-- -- bp bp bp -- -- -- 
+-- -- -- -- R R R -- 
+-- -- R R R -- -- -- 
+-- -- R -- -- -- -- -- 
+-- -- -- -- -- -- -- -- 
+wp wp wp wp wp wp wB -- 
+wQ wN wN wN wK wR wB wR 

@@ -100,17 +100,50 @@ def main():
     playerClicks=[]
     while running:
         for e in p.event.get():
+            mouse_buttons = p.mouse.get_pressed()
             if e.type==p.QUIT:
                 running =False
-            elif e.type==p.MOUSEBUTTONDOWN:
+            #elif e.type==p.MOUSEBUTTONDOWN:
+            elif mouse_buttons[0]:
                 location = p.mouse.get_pos()
                 col= location[0]//SQ_SIZE_HEIGHT
                 row= location[1]//SQ_SIZE_WIDTH
-                if gs.board[row][col][0]!="w" and gs.board[row][col][0]!="b":
-                        if gs.board[row][col]=="--":
-                            gs.board[row][col]="R"
-                        else:
-                            gs.board[row][col]="--" 
+                if gs.board[row][col]=="--":
+                    gs.board[row][col]="wp"
+                elif gs.board[row][col]!="R" and gs.board[row][col][0]!="b":
+                        if gs.board[row][col][1]=="p":
+                            gs.board[row][col]="wN"
+                        elif gs.board[row][col][1]=="N":
+                            gs.board[row][col]="wB"
+                        elif gs.board[row][col][1]=="B":
+                            gs.board[row][col]="wR"
+                        elif gs.board[row][col][1]=="R":
+                            gs.board[row][col]="wQ"
+                        elif gs.board[row][col][1]=="Q":
+                            gs.board[row][col]="wK"
+                        elif gs.board[row][col][1]=="K":
+                            gs.board[row][col]="--"
+            #elif e.type==p.MOUSEBUTTONDOWN and e.button == 3:
+            elif mouse_buttons[2]:
+                    location = p.mouse.get_pos()
+                    col= location[0]//SQ_SIZE_HEIGHT
+                    row= location[1]//SQ_SIZE_WIDTH
+                    if gs.board[row][col]=="--":
+                        gs.board[row][col]="bp"
+                    elif gs.board[row][col]!="R" and gs.board[row][col][0]!="w":
+                            if gs.board[row][col][1]=="p":
+                                gs.board[row][col]="bN"
+                            elif gs.board[row][col][1]=="N":
+                                gs.board[row][col]="bB"
+                            elif gs.board[row][col][1]=="B":
+                                gs.board[row][col]="bR"
+                            elif gs.board[row][col][1]=="R":
+                                gs.board[row][col]="bQ"
+                            elif gs.board[row][col][1]=="Q":
+                                gs.board[row][col]="bK"
+                            elif gs.board[row][col][1]=="K":
+                                gs.board[row][col]="--"
+                
 
             elif e.type== p.KEYDOWN:
                 if e.key==p.K_s:
@@ -119,7 +152,7 @@ def main():
 
                     
 
-                    with open(file_name+".txt", 'w') as f:
+                    with open("board_"+file_name+".txt", 'w') as f:
                         f.write(str(DIMENSION_HEIGHT)+" ")
                         f.write(str(DIMENSION_WIDTH))
                         f.write('\n')

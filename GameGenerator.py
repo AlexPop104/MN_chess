@@ -1,21 +1,27 @@
 import pygame as p
+import re
+import copy
 
 
 import ChessEngine as ce
-import numpy as np
+
 
 WIDTH =  1024   
 HEIGHT = 1024
 DIMENSION =8
 
-print("Width=")
-DIMENSION_WIDTH=int(input())
+# print("Width=")
+# DIMENSION_WIDTH=int(input())
 
 
-print("Height=")
-DIMENSION_HEIGHT=int(input())
+# print("Height=")
+# DIMENSION_HEIGHT=int(input())
 
+DIMENSION_WIDTH=8
+DIMENSION_HEIGHT=8
 
+DIMENSION_WIDTH=8
+DIMENSION_HEIGHT=8
 
 # 
 
@@ -35,10 +41,42 @@ def loadImages():
 
 def main():
     p.init()
+
+    print("file_name=")
+    file_name=str(input())
+
+    gs=ce.GameState(nr_rows=1,nr_columns=1)
+
+    with open(file_name+".txt", 'r') as f:
+        nr= f.readline()
+        extracted_nr=re.findall('[0-9]+',nr)
+        [DIMENSION_HEIGHT,DIMENSION_WIDTH]=list(map(int, extracted_nr))
+        
+        gs=copy.deepcopy(ce.GameState(nr_rows=DIMENSION_HEIGHT,nr_columns=DIMENSION_WIDTH))
+        
+
+        lines = f.readlines()
+        lines = [line.rstrip() for line in lines]
+        
+        for i in range(DIMENSION_HEIGHT):
+            words=lines[i]
+            split_words=words.split()
+            for j in range(DIMENSION_WIDTH):
+                gs.board[i][j]=split_words[j]
+
+            
+
+        
+
+
     screen =p.display.set_mode([WIDTH,HEIGHT])
     clock=p.time.Clock()
     screen.fill(p.Color("white"))
-    gs=ce.GameState(nr_rows=DIMENSION_HEIGHT,nr_columns=DIMENSION_WIDTH)
+
+    
+    
+
+    #gs=ce.GameState(nr_rows=DIMENSION_HEIGHT,nr_columns=DIMENSION_WIDTH)
     #print(gs.board)
 
     drawBoard(screen,gs)
@@ -68,33 +106,34 @@ def main():
                 location = p.mouse.get_pos()
                 col= location[0]//SQ_SIZE_HEIGHT
                 row= location[1]//SQ_SIZE_WIDTH
-                if gs.board[row][col][0]!="w" and gs.board[row][col][0]!="b":
-                        if gs.board[row][col]=="--":
-                            gs.board[row][col]="R"
-                        else:
-                            gs.board[row][col]="--" 
+                if sqSelected == (row, col):
+                    sqSelected=()
+                    playerClicks=[]
+                else:
+                    sqSelected=(row,col)
+                    playerClicks.append(sqSelected)
+                if len(playerClicks)==2:
+                    move= ce.Move(playerClicks[0],playerClicks[1],gs.board)
+                    print(move.getChessNotation())
 
-            elif e.type== p.KEYDOWN:
-                if e.key==p.K_s:
-                    print("file_name=")
-                    file_name=str(input())
+                    if move in validMoves:
+                        gs.makeMove(move)
+                        moveMade=True
+                    sqSelected=()
+                    playerClicks=[]    
 
-                    
-
-                    with open(file_name+".txt", 'w') as f:
-                        f.write(str(DIMENSION_HEIGHT)+" ")
-                        f.write(str(DIMENSION_WIDTH))
-                        f.write('\n')
-                        for r in range(0,DIMENSION_HEIGHT):
-                            for c in range(0,DIMENSION_WIDTH):
-                                f.write(gs.board[r][c]+" ")
-                            f.write('\n')
-                    
-                          
-                    
-                   
+                    # gs.makeMove(move)
 
                 
+
+            elif e.type== p.KEYDOWN:
+                if e.key==p.K_z:
+                    gs.undoMove()
+                    moveMade = True
+
+        if moveMade:
+            validMoves = gs.getValidMoves()
+            moveMade = False
 
         for i in range(DIMENSION_WIDTH):
             if(gs.board[0][i]=='wp'):
@@ -103,6 +142,7 @@ def main():
             if(gs.board[DIMENSION_HEIGHT-1][i]=='bp'):
                 gs.board[DIMENSION_HEIGHT-1][i]='bQ'
                 loadImages()
+
 
 
         drawGameState(screen,gs)
