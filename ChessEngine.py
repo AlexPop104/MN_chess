@@ -66,7 +66,10 @@ class GameState():
                     
                     self.board[0][nr_columns//2-3]="bN"
                     self.board[nr_rows-1][nr_columns//2-3]="wN"
-                    
+
+        if self.board[nr_rows//2][nr_columns//2]=="--":
+            self.board[nr_rows//2][nr_columns//2]="R"
+
         self.whiteToMove=True
         self.moveLog=[]
 
@@ -201,7 +204,7 @@ class GameState():
             endCol=c+m[1]
             if 0<=endRow < self.nr_rows and 0<=endCol<self.nr_columns:
                 endPiece =self.board[endRow][endCol]
-                if endPiece[0] != allyColor:
+                if endPiece[0] != allyColor and endPiece[0] !="R":
                     moves.append(Move((r,c),(endRow,endCol),self.board))
 
 

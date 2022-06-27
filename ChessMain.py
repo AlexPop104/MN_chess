@@ -108,22 +108,25 @@ def main():
         p.display.flip()
 
 def drawGameState(screen,gs):
-    drawBoard(screen)
+    drawBoard(screen,gs)
     drawPieces(screen,gs.board)
 
-def drawBoard(screen):
+def drawBoard(screen,gs):
     colors=[p.Color("white"),p.Color("gray")]
     #colors=[p.Color("red"),p.Color("black")]
     for r in range(DIMENSION_HEIGHT):
         for c in range(DIMENSION_WIDTH):
-            color= colors[((r+c)%2)]
+            if gs.board[r][c]!="R":
+                color= colors[((r+c)%2)]
+            else:
+                color=p.Color("red")
             p.draw.rect(screen,color,p.Rect(c*SQ_SIZE_HEIGHT,r*SQ_SIZE_WIDTH,SQ_SIZE_HEIGHT,SQ_SIZE_WIDTH))
 
 def drawPieces(screen,board):
     for r in range(DIMENSION_HEIGHT):
         for c in range(DIMENSION_WIDTH):
             piece=board[r][c]
-            if piece != "--":
+            if piece != "--" and piece != "R":
                 screen.blit(IMAGES[piece],p.Rect(c*SQ_SIZE_HEIGHT,r*SQ_SIZE_WIDTH,SQ_SIZE_HEIGHT,SQ_SIZE_WIDTH))
 
 if __name__=="__main__":
